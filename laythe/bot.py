@@ -16,17 +16,12 @@ from .database import LaytheDB, Warn
 from .utils import EmbedColor, kstnow
 
 try:
-    from extlib.klist import KListClient
-    from extlib.nugrid import NUgridClient, NUgridHandler
     from extlib.spellchecker import SpellChecker
 except ImportError:
     import sys
 
-    print("extlib missing, `/맞춤법` command and klist-related features disabled.")
-    KListClient = None
+    print("extlib missing, `/맞춤법` command disabled.")
     SpellChecker = None
-    NUgridClient = None
-    NUgridHandler = None
 
 
 class InteractionClient(InteractionBase):
@@ -46,8 +41,8 @@ class LaytheBot(Bot):
     nugrid: NUgridClient
 
     def __init__(self, *, logger: Logger):
-        intents = Intents.no_privileged()
-        intents.guild_members = True
+        intents = Intents.full()
+        # intents.guild_members = True
         super().__init__(
             Config.TOKEN,
             self.get_prefix,
@@ -62,18 +57,9 @@ class LaytheBot(Bot):
             auto_register_commands=bool(Config.TESTING_GUILDS),
         )
         self.loop.create_task(self.setup_bot())
-        self.klist = (
-            KListClient(self, Config.KBOT_TOKEN, self.http.session)
-            if KListClient
-            else KListClient
-        )  # noqa
         self.spell = (
             SpellChecker(self.http.session) if SpellChecker else SpellChecker
         )  # noqa
-        self.nugrid = NUgridClient(
-            Config.NUGRID_HOST, session=self.http.session, loop=self.loop
-        )
-        self.nugrid_handler = NUgridHandler(self.nugrid)
 
     async def setup_bot(self):
         await self.wait_ready()
@@ -84,14 +70,6 @@ class LaytheBot(Bot):
             login_pw=Config.DB_PW,
             db_name=Config.DB_NAME,
         )
-        if self.klist and not Config.DEBUG:
-            self.klist.create_guild_count_task()
-        if self.nugrid:
-            self.nugrid.headers = {
-                "Authentication": Config.NUGRID_PASSWORD,
-                "Client": str(self.user.id),
-            }
-            self.loop.create_task(self.nugrid.start())
 
     async def get_prefix(self, message: Message):
         await self.wait_ready()
@@ -225,5 +203,4 @@ class LaytheBot(Bot):
 
     async def close(self):
         await self.database.close()
-        await self.nugrid.close()
         await super().close()

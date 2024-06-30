@@ -89,19 +89,19 @@ class Utils(LaytheAddonBase, name="유틸리티"):
             style=ButtonStyles.LINK,
             label="CodeNU Web",
             emoji="<:codenu:919133992236765234>",
-            url="https://codenu.github.io/",
+            url="https://codenu.kr/",
         )
         github = Button(
             style=ButtonStyles.LINK,
             label="GitHub",
             emoji="<:github:872322613987389441>",
-            url="https://github.com/codenu/laythe-v2",
+            url="https://github.com/eunwoo1104/laythe-v2",
         )
         privacy = Button(
             style=ButtonStyles.LINK,
             label="개인정보 취급 방침",
             emoji="📃",
-            url="https://codenu.github.io/privacyPolicy.html",
+            url="https://codenu.kr/privacy",
         )
         row = ActionRow(codenu, github, privacy)
         await ctx.send(embed=embed, components=[row])
@@ -183,13 +183,6 @@ class Utils(LaytheAddonBase, name="유틸리티"):
         embed.set_thumbnail(url=guild.icon_url())
         embed.set_image(url=guild.banner_url())
         await ctx.send(embed=embed)
-
-    @slash("구독", description="CodeNU 봇 공지에 구독해요.")
-    @checks(has_perm(manage_webhooks=True), bot_has_perm(manage_webhooks=True))
-    async def subscribe(self, ctx: InteractionContext):
-        await ctx.defer()
-        await self.bot.follow_news_channel(Config.NOTICE_CHANNEL, ctx.channel_id)
-        await ctx.send("✅ 성공적으로 CodeNU 레이테 공지 채널에 구독했어요.")
 
     @slash(
         "맞춤법",

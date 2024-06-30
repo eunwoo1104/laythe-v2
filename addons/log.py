@@ -46,7 +46,7 @@ from laythe.utils import (
 
 
 class Log(LaytheAddonBase, name="로깅"):
-    CONTENT_UNAVAILABLE: str = "(메시지의 내용이 없거나 디스코드의 정책으로 메시지 내용을 읽어올 수 없어요.)"
+    CONTENT_UNAVAILABLE: str = "(메시지의 내용이 없거나 메시지 내용을 읽어올 수 없어요.)"
 
     @on("management_command")
     async def on_management_command(self, ctx: InteractionContext):
@@ -125,13 +125,11 @@ class Log(LaytheAddonBase, name="로깅"):
                 text=f"메시지 ID: {message_delete.id}\n채널 ID: {message_delete.channel_id}"
             )
         else:
-            """
             embed.add_field(
                 name="메시지 내용",
                 value=message.content or self.CONTENT_UNAVAILABLE,
                 inline=False,
             )
-            """
             embed.set_author(
                 name=str(message.member), icon_url=message.member.avatar_url()
             )

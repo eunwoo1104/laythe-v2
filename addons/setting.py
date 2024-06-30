@@ -40,7 +40,7 @@ SETTING_MODIFY_METADATA = {
 
 class Setting(LaytheAddonBase, name="설정"):
     buffer: Dict[Snowflake, SettingData]
-    VOTE_AD: str = "혹시 레이테를 유용하게 사용하고 있으신가요? 잠깐 [여기](https://koreanbots.dev/bots/872349051620831292/vote)서 레이테에게 투표를 해주세요!"
+    VOTE_AD: str = ""
 
     def on_load(self):
         self.buffer = {}

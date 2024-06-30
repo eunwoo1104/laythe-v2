@@ -20,7 +20,7 @@ class Tasks(LaytheAddonBase):
                 await self.bot.wait_ready()
 
                 texts = [
-                    "'laythe.codenu.kr'을 방문해보세요!",
+                    "Laythe에서 전환",
                     f"{self.bot.guild_count}개 서버에서 사용",
                 ]
                 for x in texts:

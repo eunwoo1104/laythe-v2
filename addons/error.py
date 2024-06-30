@@ -40,7 +40,7 @@ class Error(LaytheAddonBase, name="오류"):
             base.description = f"이 명령어를 실행하기 위해 `{'`, `'.join([permission_translates.get(x, x) for x in ex])}` 권한이 필요해요."
         elif isinstance(ex, PermissionUnavailable):
             base.title += "권한 정보를 가져오지 못했어요."
-            base.description = "명령어를 다시 사용해주세요. 그래도 문제가 계속된다면, [CodeNU](https://discord.gg/gqJBhar) 디스코드 서버에서 문의해주세요."
+            base.description = "명령어를 다시 사용해주세요. 그래도 문제가 계속된다면, eunwoo1104의 DM으로 문의해주세요."
         else:
             base.title += "예기치 못한 오류가 발생했어요..."
             base.description = f"디버깅용 메시지: ```py\n{edited_tb}\n```"
