@@ -38,7 +38,6 @@ class InteractionClient(InteractionBase):
 class LaytheBot(Bot):
     interaction: InteractionClient
     database: LaytheDB
-    nugrid: NUgridClient
 
     def __init__(self, *, logger: Logger):
         intents = Intents.full()
