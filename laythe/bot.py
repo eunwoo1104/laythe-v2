@@ -54,7 +54,7 @@ class LaytheBot(Bot):
         InteractionClient(
             client=self,
             guild_ids_lock=Config.TESTING_GUILDS,
-            auto_register_commands=bool(Config.TESTING_GUILDS),
+            auto_register_commands=bool(Config.TESTING_GUILDS) or Config.REGISTER_COMMANDS,
         )
         self.loop.create_task(self.setup_bot())
         self.spell = (

@@ -8,6 +8,7 @@ class Config:
     MONO_SHARD: bool = False
     TESTING_GUILDS: Optional[List[int]] = None
     NOTICE_CHANNEL: int = None
+    REGISTER_COMMANDS: bool = False
 
     # Bot List
     KBOT_TOKEN: str = ""
